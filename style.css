@@ -1,5 +1,5 @@
 :root {
-  --primary-color: dodgerblue;
+  --primary-color: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
   --font-color: white;
 }
 
@@ -43,7 +43,8 @@ video {
 .show-controls {
   width: 100%;
   height: 30%;
-  background: dodgerblue;
+  /* background: dodgerblue; */
+
   z-index: 2;
   position: absolute;
   bottom: 0;
@@ -177,6 +178,7 @@ video {
 
 select,
 option {
+  cursor: pointer;
 }
 
 select {
