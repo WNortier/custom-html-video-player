@@ -88,6 +88,46 @@ const changeSpeed = () => {
   video.playbackRate = speed.value;
 };
 
+// Fullscreen
+
+const openFullscreen = (elem) => {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) {
+    /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    /* IE11 */
+    elem.msRequestFullscreen();
+  }
+  video.classList.add("video-fullscreen");
+};
+
+/* Close fullscreen */
+const closeFullscreen = () => {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    /* IE11 */
+    document.msExitFullscreen();
+  }
+  video.classList.remove("video-fullscreen");
+};
+
+let fullscreen = false;
+
+const toggleFullscreen = () => {
+  if (!fullscreen) {
+    openFullscreen(player);
+  } else {
+    closeFullscreen();
+  }
+  fullscreen = !fullscreen;
+};
+
 // Event Listeners
 // On video end show play button icon
 video.addEventListener("ended", showPlayIcon);
@@ -99,3 +139,4 @@ progressRange.addEventListener("click", setProgress);
 volumeRange.addEventListener("click", changeVolume);
 volumeIcon.addEventListener("click", toggleMute);
 speed.addEventListener("change", changeSpeed);
+fullScreenBtn.addEventListener("click", toggleFullscreen);
