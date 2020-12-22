@@ -7,4 +7,5 @@ const volumeRange = document.querySelector(".volume-range");
 const volumeBar = document.querySelector(".volume-bar");
 const currentTime = document.querySelector(".time-elapsed");
 const duration = document.querySelector(".time-duration");
+const speed = document.querySelector(".player-speed");
 const fullScreenBtn = document.querySelector(".fullscreen");

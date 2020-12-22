@@ -39,6 +39,8 @@ const setProgress = (e) => {
   video.currentTime = newTime * video.duration;
 };
 
+let lastVolume = 1; //100%
+
 // Volume
 const changeVolume = (e) => {
   let volume = e.offsetX / volumeRange.offsetWidth;
@@ -51,6 +53,39 @@ const changeVolume = (e) => {
   }
   volumeBar.style.width = `${volume * 100}%`;
   video.volume = volume;
+  // Change icon depending on volume
+  volumeIcon.className = "";
+  if (volume > 0.6) {
+    volumeIcon.classList.add("fas", "fa-volume-up");
+  } else if (volume < 0.7 && volume > 0) {
+    volumeIcon.classList.add("fas", "fa-volume-down");
+  } else if (volume === 0 || volume === 0.1) {
+    volumeIcon.classList.add("fas", "fa-volume-off");
+  }
+  lastVolume = volume;
+};
+
+// Mute/Unmute which remembers last volume level
+const toggleMute = () => {
+  volumeIcon.className = "";
+  if (video.volume) {
+    lastVolume = video.volume;
+    video.volume = 0;
+    volumeBar.style.width = 0;
+    volumeIcon.classList.add("fas", "fa-volume-mute");
+    volumeIcon.setAttribute("title", "Unmute");
+  } else {
+    video.volume = lastVolume;
+    volumeBar.style.width = `${lastVolume * 100}%`;
+    volumeIcon.classList.add("fas", "fa-volume-up");
+    volumeIcon.setAttribute("title", "Mute");
+  }
+};
+
+// Change video speed
+
+const changeSpeed = () => {
+  video.playbackRate = speed.value;
 };
 
 // Event Listeners
@@ -62,3 +97,5 @@ video.addEventListener("timeupdate", updateProgress);
 video.addEventListener("canplay", updateProgress);
 progressRange.addEventListener("click", setProgress);
 volumeRange.addEventListener("click", changeVolume);
+volumeIcon.addEventListener("click", toggleMute);
+speed.addEventListener("change", changeSpeed);
